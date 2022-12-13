@@ -1,0 +1,21 @@
+mat-toolbar
+  display : grid
+  gap     : 1.6rem
+  & button
+    grid-area: menu
+
+.toolbar
+  grid-template-areas   : "menu toolbar"
+  grid-template-columns : auto 1fr
+  & nav
+    grid-area: toolbar
+
+nav
+  display : flex
+  gap     : 1.6rem
+  & > a, & > button
+    font-size      : 1.8rem
+    text-transform : uppercase
+  & > a:first-child
+    margin-right : auto
+    opacity      : 1

@@ -1,0 +1,9 @@
+@mixin after($content: "") 
+  &::after 
+    content: $content
+    @content
+
+@mixin before($content: "") 
+  &::before 
+    content: $content
+    @content

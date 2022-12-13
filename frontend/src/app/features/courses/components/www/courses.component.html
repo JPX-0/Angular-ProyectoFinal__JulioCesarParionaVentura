@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Cursos</h1>
+  <div style="margin-bottom: 2rem; display: flex; justify-content: center;">
+    <button mat-raised-button (click)="openDialog_addCourse('xd')" color="accent">Agregar Curso</button>
+  </div>
+  <section>
+    <mat-card 
+      *ngFor="let course of (courses$ | async)" 
+      [ngClass]="{'card': (getRole() | async)?.isAuth, 'table': (getRole() | async)?.isAdmin}"
+    >
+      <mat-card-header>
+        <img mat-card-avatar/>
+        <mat-card-title>{{ course?.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content *ngIf="(getRole() | async)?.isAuth">
+        <h3>Sobre el curso:</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident possimus tenetur, facilis nihil ipsa eaque dolor cum dolores quidem repudiandae quod temporibus perspiciatis, reprehenderit nesciunt placeat. Officia, quasi molestiae consectetur omnis voluptate ullam, quia eius, eaque delectus itaque porro! Inventore veritatis explicabo asperiores voluptatum tenetur ab. Fuga, odit earum eius qui cupiditate tenetur cumque, natus eligendi, obcaecati repellat tempore quas.</p>
+      </mat-card-content>
+      <mat-card-actions *ngIf="(getRole() | async)?.isAuth">
+        <button mat-raised-button (click)="openDialog_inscription(course?._id)" color="primary">Inscribirme</button>
+      </mat-card-actions>
+      <mat-card-actions *ngIf="(getRole() | async)?.isAdmin">
+        <button mat-raised-button (click)="openDialog_editCommission(course?._id)">Editar</button>
+        <button mat-raised-button color="primary">Eliminar</button>
+      </mat-card-actions>
+    </mat-card>
+  </section>
+</div>

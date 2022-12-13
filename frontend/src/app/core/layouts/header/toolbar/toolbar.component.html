@@ -1,0 +1,27 @@
+<mat-toolbar color='primary' [ngClass]="{'toolbar': (getRole() | async)?.isAuth}">
+  <button mat-icon-button type="button" (click)="menu.toggle()" *ngIf="(getRole() | async)?.isAuth">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <nav *ngIf="!((getRole() | async)?.isAuth || (getRole() | async)?.isAdmin)">
+    <a mat-button routerLink="" alt="imitación de CoderHouse">newCoderHouse</a>
+  </nav>
+  <nav *ngIf="(getRole() | async)?.isAuth || (getRole() | async)?.isAdmin">
+    <a mat-button routerLink="" alt="imitación de CoderHouse">newCoderHouse</a>
+    <a mat-button *ngFor="let render of (getRole() | async)?.isAuth ? routesAuth : routesAdmin"
+      routerLink="{{ render.route }}"
+      matTooltip="{{ render.title }}"
+      [matTooltipPosition]="'below'"
+      [ngClass]="{'route-active': render.active | async}"
+      [color]="render.route == 'profile' && 'accent'"
+    >{{ render.name }}</a>
+    <button mat-button 
+      matTooltip="Logout" 
+      [matTooltipPosition]="'below'"
+      color="accent"
+      (click)="logout()"
+      *ngIf="(getRole() | async)?.isAdmin"
+    >
+      Cerrar sesión
+    </button>
+  </nav>
+</mat-toolbar>

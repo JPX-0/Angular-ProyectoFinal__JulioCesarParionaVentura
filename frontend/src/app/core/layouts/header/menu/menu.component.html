@@ -1,0 +1,125 @@
+<nav [ngClass]="{'show': menu.get()}">
+  <section class="route">
+    <h6 class="route__title" *ngIf="menu.get()">Mis Cursos</h6>
+    <ul class="route__group">
+      <li>
+        <a mat-button 
+          matTooltip="Ver estado: Cursando" 
+          [matTooltipPosition]="'right'" 
+          routerLink="" 
+          [queryParams]="{myCourses: 'studying'}"
+        >
+          <span class="route__container">
+            <mat-icon class="route__container-icon">local_library</mat-icon>
+            <span class="route__container-name">Cursando</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a mat-button 
+          matTooltip="Ver estado: Cursados" 
+          [matTooltipPosition]="'right'" 
+          routerLink="" 
+          [queryParams]="{myCourses: 'finalized'}"
+        >
+          <span class="route__container">
+            <mat-icon class="route__container-icon">school</mat-icon>
+            <span class="route__container-name">Cursados</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a mat-button 
+          matTooltip="Ver estado: Por cursar" 
+          [matTooltipPosition]="'right'" 
+          routerLink="" 
+          [queryParams]="{myCourses: 'without-starting'}"
+        >
+          <span class="route__container">
+            <mat-icon class="route__container-icon">pending_actions</mat-icon>
+            <span class="route__container-name">Por cursar</span>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <hr>
+  <section class="route">
+    <h6 class="route__title" *ngIf="menu.get()">Últimos cursos visitados</h6>
+    <ol class="route__group">
+      <li>
+        <a mat-button routerLink="">
+          <span class="route__container">
+            <span class="route__container-icon icon">A</span>
+            <span class="icon--absolute icon--left"></span>
+            <span class="icon--absolute icon--right"></span>
+            <span class="route__container-name">000001 - Angular</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a mat-button routerLink="">
+          <span class="route__container">
+            <span class="route__container-icon icon">RJS</span>
+            <span class="icon--absolute icon--left"></span>
+            <span class="icon--absolute icon--right"></span>
+            <span class="route__container-name">000001 - ReactJS</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a mat-button routerLink="">
+          <span class="route__container">
+            <span class="route__container-icon icon">DW</span>
+            <span class="icon--absolute icon--left"></span>
+            <span class="icon--absolute icon--right"></span>
+            <span class="route__container-name">000001 - Desarrollo Web</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a mat-button routerLink="">
+          <span class="route__container">
+            <span class="route__container-icon icon">DW</span>
+            <span class="icon--absolute icon--left"></span>
+            <span class="icon--absolute icon--right"></span>
+            <span class="route__container-name">000001 - Desarrollo Web</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a mat-button routerLink="">
+          <span class="route__container">
+            <span class="route__container-icon icon">DW</span>
+            <span class="icon--absolute icon--left"></span>
+            <span class="icon--absolute icon--right"></span>
+            <span class="route__container-name">000001 - Desarrollo Web</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a mat-button routerLink="">
+          <span class="route__container">
+            <span class="route__container-icon icon">DW</span>
+            <span class="icon--absolute icon--left"></span>
+            <span class="icon--absolute icon--right"></span>
+            <span class="route__container-name">000001 - Desarrollo Web</span>
+          </span>
+        </a>
+      </li>
+    </ol>
+  </section>
+</nav>
+<div class="auth" [ngClass]="{'show': menu.get()}">
+  <hr>
+  <button mat-raised-button 
+    type="button" 
+    (click)="logout()"
+    matTooltip="Logout" 
+    [matTooltipPosition]="'right'"
+  >
+    <span class="auth__container" >
+      <mat-icon>account_circle</mat-icon><span>Cerrar sesión</span>
+    </span>
+  </button>
+</div>

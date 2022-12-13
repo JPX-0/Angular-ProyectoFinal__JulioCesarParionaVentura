@@ -1,0 +1,95 @@
+<div class="container">
+  <h1>Home</h1>
+  <div *ngIf="(getRole() | async)?.isAdmin">
+    <p style="text-align: center;">Bienvenido Admin!</p>
+  </div>
+  <div *ngIf="(getRole() | async)?.isAuth && (!(route.queryParams | async)?.['myCourses'])" class="container-main">
+    <section>
+      <h2>Cursando</h2>
+      <a routerLink="" [queryParams]="{myCourses: 'studying'}" class="link">Ver todos</a>
+      <mat-card class="card" *ngIf="(renderCards('studying') | async) | returnValueCard :'boolean'">
+        <mat-card-header>
+          <img mat-card-avatar/>
+          <mat-card-title>{{ ((renderCards('studying') | async) | returnValueCard :"firstData").name }}</mat-card-title>
+          <mat-card-subtitle>
+            Comisión {{ ((renderCards('studying') | async) | returnValueCard :"firstData")._id }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <a mat-raised-button 
+            routerLink="course/{{ (renderCards('studying') | async) | returnValueCard :'firstData' :true }}" 
+            color="primary"
+          >
+            Ir al curso
+          </a>
+        </mat-card-actions>
+      </mat-card>
+      <p *ngIf="!((renderCards('studying') | async) | returnValueCard :'boolean')">No estas estudiano actualmente</p>
+    </section>
+    <section>
+      <h2>Cursados</h2>
+      <a routerLink="" [queryParams]="{myCourses: 'finalized'}" class="link">Ver todos</a>
+      <mat-card class="card" *ngIf="(renderCards('finalized') | async) | returnValueCard :'boolean'">
+        <mat-card-header>
+          <img mat-card-avatar/>
+          <mat-card-title>{{ ((renderCards('finalized') | async) | returnValueCard :"lastData").name }}</mat-card-title>
+          <mat-card-subtitle>
+            Comisión {{ ((renderCards('finalized') | async) | returnValueCard :"lastData")._id }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <a mat-raised-button 
+            routerLink="course/{{ (renderCards('finalized') | async) | returnValueCard :'lastData' :true }}" 
+            color="primary"
+          >
+            Ir al curso
+          </a>
+        </mat-card-actions>
+      </mat-card>
+      <p *ngIf="!((renderCards('finalized') | async) | returnValueCard :'boolean')">No no has culminado un curso</p>
+    </section>
+    <section>
+      <h2>Por cursar</h2>
+      <a routerLink="" [queryParams]="{myCourses: 'without-starting'}" class="link">Ver todos</a>
+      <mat-card class="card" *ngIf="(renderCards('without-starting') | async) | returnValueCard :'boolean'">
+        <mat-card-header>
+          <img mat-card-avatar/>
+          <mat-card-title>{{ ((renderCards('without-starting') | async) | returnValueCard :"firstData").name }}</mat-card-title>
+          <mat-card-subtitle>
+            Comisión {{ ((renderCards('without-starting') | async) | returnValueCard :"firstData")._id }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <a mat-raised-button 
+            routerLink="course/{{ (renderCards('without-starting') | async) | returnValueCard :'firstData' :true }}" 
+            color="primary"
+          >
+            Ir al curso
+          </a>
+        </mat-card-actions>
+      </mat-card>
+      <p *ngIf="!((renderCards('without-starting') | async) | returnValueCard :'boolean')">No tienes ningún curso próximo</p>
+    </section>
+  </div>
+  <div *ngIf="(route.queryParams | async)?.['myCourses']" class="container-courses">
+    <a routerLink="" class="link">{{'< Volver'}}</a>
+    <h2 class="courses__name">{{ (route.queryParams | async)?.['myCourses'] | resolvePageName }}</h2>
+    <section>
+      <mat-card *ngFor="let card of (renderCards((route.queryParams | async)?.['myCourses']) | async)" class="card">
+        <mat-card-header>
+          <img mat-card-avatar/>
+          <mat-card-title>{{ card.name }}</mat-card-title>
+          <mat-card-subtitle>Comisión {{ card.commission }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <a mat-raised-button 
+            routerLink="course/{{ [card] | returnValueCard :'firstData' :true }}" 
+            color="primary"
+          >
+            Ir al curso
+          </a>
+        </mat-card-actions>
+      </mat-card>
+    </section>
+  </div>
+</div>

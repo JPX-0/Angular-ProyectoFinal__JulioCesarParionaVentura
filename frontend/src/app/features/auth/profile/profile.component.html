@@ -1,0 +1,90 @@
+<div class="container">
+  <h1>Mi perfil</h1>
+  <section class="hero">
+    <figure>
+      <picture class="hero__img">
+        <img src="{{ (userData$ | async)?.image }}" alt="img"/>
+      </picture>
+      <div class="hero__name">
+        <span>Nombres:</span>
+        <figcaption>{{ (userData$ | async)?.firstName }} {{ (userData$ | async)?.lastName }}</figcaption>
+      </div>
+      <div class="hero__age">
+        <span>Edad:</span>
+        <p>{{ (userData$ | async)?.age }} años</p>
+      </div>
+    </figure>
+  </section>
+  <form [formGroup]="userForm" class="form" (ngSubmit)="updateUser()">
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre:</mat-label>
+      <input matInput requiredtype="text" formControlName="firstName">
+      <mat-error *ngIf="when_error('firstName', 'required')">Es requerido llenar este campo.</mat-error>
+      <mat-error *ngIf="when_error('firstName', 'nameFormat')">El nombre ingresado es inválido.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Apellido:</mat-label>
+      <input matInput required type="text"  formControlName="lastName">
+      <mat-error *ngIf="when_error('lastName', 'required')">Es requerido llenar este campo.</mat-error>
+      <mat-error *ngIf="when_error('lastName', 'nameFormat')">El apellido ingresado es inválido.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Avatar:</mat-label>
+      <input matInput type="url" formControlName="image">
+      <mat-error *ngIf="when_error('image', 'url')">Esto no es una URL válida.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha de nacimiento:</mat-label>
+      <input matInput required
+        formControlName="birth" 
+        [matDatepicker]="picker"
+        style="width: calc(100% - 3.5rem);"
+      >
+      <div class="input-date">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+      <mat-hint *ngIf="!when_error('birth', 'required') || !when_error('birth', 'minAge')">MM/DD/YYYY</mat-hint>
+      <mat-error *ngIf="when_error('birth', 'required')">Es requerido llenar este campo.</mat-error>
+      <mat-error *ngIf="when_error('birth', 'minAge')">Debe tener entre 18 y 60 años.</mat-error>
+    </mat-form-field>
+    <button mat-flat-button 
+      type="button" 
+      color="primary" 
+      (click)="userForm.enable()"
+      *ngIf="userForm.disabled"
+    >Actualizar mis datos</button>
+    <button mat-flat-button 
+      type="submit" 
+      color="primary" 
+      *ngIf="userForm.enabled"
+      [disabled]="(sending$ | async) || (verifyChanges() | async)"
+    >{{ (sending$ | async) ? "Actualizando..." : "Guardar cambios" }}</button>
+    <button mat-flat-button 
+      type="button" 
+      (click)="userForm.disable()" 
+      [disabled]="(sending$ | async) || userForm.disabled"
+    >Cancelar</button>
+  </form>
+  <mat-tab-group dynamicHeight class="info">
+    <mat-tab label="Trofeos">
+      <article class="info__trophies">
+        <h4>Cursos finalizados</h4>
+        <article>
+          <p>15</p>
+          <h5>TOP 10%</h5>
+        </article>
+        <article>
+          <p>37</p>
+          <h5>Total</h5>
+        </article>
+      </article>
+    </mat-tab>
+    <mat-tab label="Referencia">
+      <article class="info__reference">
+        <h4>Código de referencia</h4>
+        <code>a65vc51dv84dv18d4cxa2022s-4v</code>
+      </article>
+    </mat-tab>
+  </mat-tab-group>
+</div>

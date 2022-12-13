@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Curso de {{ course?.name }}</h2>
+<mat-dialog-content class="mat-typography">
+  <section *ngFor="let commission of course?.commissions">
+    <div>
+      <p>Fechas: {{ commission.date | resolveCourseDate }} </p>
+      <p>Dias: {{ commission.days }}</p>
+      <p>Horario: {{ commission.time.start }} a {{ commission.time.end }}</p>
+      <p>Profesor: {{ commission.teacher }}</p>
+    </div>
+    <div>
+      <button mat-raised-button 
+        color="primary" 
+        type="button" 
+        (click)="inscription(commission._id)"
+        [disabled]="commission.groups.length < 1"
+      >
+        Inscribirme
+      </button>
+      <p [ngClass]="{'on': commission.groups.length > 0}">Inscripción </p>
+    </div>
+  </section>
+</mat-dialog-content>

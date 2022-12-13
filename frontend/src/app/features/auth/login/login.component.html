@@ -1,0 +1,27 @@
+<form [formGroup]="session" class="session" (ngSubmit)="login()">
+  <legend>Iniciar sesión</legend>
+  <section>
+    <mat-form-field appearance="fill">
+      <mat-label>Ingresar email</mat-label>
+      <input matInput type="email" placeholder="email@example.com" formControlName="email" required>
+      <mat-error *ngIf="when_error('email', 'required')">Es requerido llenar este campo.</mat-error>
+      <mat-error *ngIf="when_error('email', 'email')">Debe ingresar un correo válido</mat-error>
+      <mat-error *ngIf="when_error('email', 'notFound')">Datos incorrectos</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Ingresar contraseña</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" placeholder="passord" formControlName="password" required>
+      <button mat-icon-button matSuffix 
+        (click)="hide = !hide" 
+        [attr.aria-label]="'Hide password'" 
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="when_error('password', 'required')">Es requerido llenar este campo.</mat-error>
+      <mat-error *ngIf="when_error('password', 'notFound')">Datos incorrectos</mat-error>
+    </mat-form-field>
+  </section>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!session.valid" class="my-3">Ingresar</button>
+  <p>¿Aún no tines una cuenta? <a [routerLink]="'/signup'">Registrate aquí</a></p>
+</form>

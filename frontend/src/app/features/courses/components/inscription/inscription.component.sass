@@ -1,0 +1,25 @@
+@import "src/sass/mixin.sass"
+
+h2
+  text-align: center
+
+mat-dialog-content
+  display : grid
+  gap     : 1rem
+  padding : 1rem 2rem
+  & section
+    align-items : center
+    border      : 0.1rem groove black
+    display     : flex
+    gap         : 3rem
+    padding     : 1rem
+    & p 
+      margin: 0
+    & button ~ p
+      color: red
+      font-size: 0.9rem
+      text-align: center
+      @include after("Cerrada")
+    & button ~ p.on
+      color: green
+      @include after("Abierta")

@@ -1,0 +1,34 @@
+header
+  border-bottom : 0.1rem solid gray
+  grid-area     : header
+
+app-menu
+  background-color : #212121
+  border-right     : 0.1rem solid gray
+  color            : white
+  display          : flex
+  flex-direction   : column
+  justify-content  : space-between
+  padding          : 0.8rem
+
+.body
+  grid-template-areas   : "menu main"
+  grid-template-columns : auto 1fr
+  & app-menu
+    grid-area: menu
+  & main
+    grid-area: main
+
+main
+  overflow-y : auto
+  padding    : 0.8rem
+  width      : 100%
+
+footer
+  align-items      : center
+  background-color : #212121
+  border-top       : 0.1rem solid white
+  color            : white
+  display          : flex
+  grid-area        : footer
+  justify-content  : center

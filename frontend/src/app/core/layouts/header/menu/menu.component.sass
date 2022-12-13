@@ -1,0 +1,130 @@
+@import "../../../../../sass/mixin"
+
+.class
+  &_icon
+    background-color : white
+    height           : 0.3rem
+    position         : absolute
+    width            : 0.8rem
+  &_separator
+    background-color : gray
+    display          : block
+    height           : 0.15rem
+
+.show
+  & .route
+    display            : grid
+    flex-direction     : inherit
+    grid-template-rows : 2rem 1fr
+    &:last-child &__group
+      max-height: calc(100vh - 37.5rem)
+    &__group
+      margin: 0
+    &__container
+      display               : grid
+      gap                   : 0.8rem
+      grid-template-columns : 4rem 1fr
+      padding               : 0
+      width                 : 20rem
+      &-name
+        opacity : 1
+        width   : 100%
+  &.auth .auth__container span:last-child
+    display: block
+
+span.auth__container:hover mat-icon
+  color: red
+
+.route
+  display        : flex
+  flex-direction : column
+  gap            : 0.6rem
+  margin         : 0.8rem 0
+  &:last-child &__group
+    max-height : calc(100vh - 33.5rem)
+    overflow-y : auto
+  &:hover &__title
+    opacity: 1
+  &__title
+    color      : white
+    display    : block
+    font-size  : 1rem
+    margin     : 0
+    opacity    : 0.7
+    padding    : 0
+    text-align : start
+    transition : 0.1s
+  &__group
+    display    : grid
+    gap        : 0.6rem
+    margin-top : 0.8rem
+    width      : max-content
+    & a
+      display : block
+      padding : 0
+  &__container 
+    display    : flex
+    gap        : 0
+    margin     : auto
+    max-width  : 20rem
+    min-width  : 5.6rem
+    overflow   : hidden
+    padding    : 0 0.8rem
+    position   : relative
+    transition : 0.3s
+    width      : 5.6rem
+    &-icon
+      align-items     : center
+      display         : flex
+      height          : 4rem
+      justify-content : center
+      width           : 4rem
+    &-name 
+      opacity       : 0
+      overflow      : hidden
+      text-align    : start
+      text-overflow : ellipsis
+      transition    : 0.3s
+      white-space   : nowrap
+      width         : 0
+
+.icon
+  border-left  : 0.3rem solid white
+  border-right : 0.3rem solid white
+  position     : relative
+  &--absolute
+    bottom   : 0
+    position : absolute
+    top      : 0
+  &--left
+    @include before
+      left : 0
+      top  : 0
+      @extend .class_icon
+    @include after
+      bottom : 0
+      left   : 0
+      @extend .class_icon
+  &--right
+    @include after
+      bottom : 0
+      left   : 3.2rem
+      @extend .class_icon
+    @include before
+      left : 3.2rem
+      top  : 0
+      @extend .class_icon
+
+.auth
+  display : grid
+  gap     : 0.8rem
+  & button
+    padding: 0
+  &__container
+    align-items     : center
+    display         : flex
+    gap             : 0.8rem
+    height          : 4rem
+    justify-content : center
+    & span:last-child
+      display: none

@@ -1,0 +1,72 @@
+<form [formGroup]="session" class="session" (ngSubmit)="signup()">
+  <legend>Registrar sesion</legend>
+  <section>
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre:</mat-label>
+      <input matInput required
+        type="text" 
+        formControlName="firstName" 
+      >
+      <mat-error *ngIf="when_error('firstName', 'required')">Es requerido llenar este campo.</mat-error>
+      <mat-error *ngIf="when_error('firstName', 'nameFormat')">El nombre ingresado es inválido.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Apellido:</mat-label>
+      <input matInput required
+        type="text" 
+        formControlName="lastName" 
+      >
+      <mat-error *ngIf="when_error('lastName', 'required')">Es requerido llenar este campo.</mat-error>
+      <mat-error *ngIf="when_error('lastName', 'nameFormat')">El apellido ingresado es inválido.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Avatar:</mat-label>
+      <input matInput 
+        type="url" 
+        formControlName="image"
+      >
+      <mat-error *ngIf="when_error('image', 'url')">Esto no es una URL válida.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha de nacimiento:</mat-label>
+      <input matInput required
+        formControlName="birth"  
+        [matDatepicker]="picker"
+        style="width: calc(100% - 3.5rem);"
+      >
+      <div class="input-date">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+      <mat-hint *ngIf="!when_error('birth', 'required') || !when_error('birth', 'minAge')">MM/DD/YYYY</mat-hint>
+      <mat-error *ngIf="when_error('birth', 'required')">Es requerido llenar este campo.</mat-error>
+      <mat-error *ngIf="when_error('birth', 'minAge')">Debe tener entre 18 y 60 años.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Correo:</mat-label>
+      <input matInput required
+        type="email" 
+        formControlName="email" 
+      >
+      <mat-error *ngIf="when_error('email', 'required')">Es requerido llenar este campo.</mat-error>
+      <mat-error *ngIf="when_error('email', 'email')">Debe ingresar un correo válido.</mat-error>
+      <mat-error *ngIf="when_error('email', 'duplicate')">El email ingresado ya existe.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Nueva contraseña</mat-label>
+      <input matInput type="password" placeholder="new passord" formControlName="npassword" required>
+      <mat-error *ngIf="when_error('npassword', 'required')">Es requerido llenar este campo.</mat-error>
+      <mat-error *ngIf="when_error('npassword', 'minlength')">Mínimo debe tener 6 caracteres.</mat-error>
+      <mat-error *ngIf="when_error('npassword', 'passwordEqual')">Las contraseñas no coinciden.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Repetir contraseña</mat-label>
+      <input matInput type="password" placeholder="repeat passord" formControlName="rpassword" required>
+      <mat-error *ngIf="when_error('rpassword', 'required')">Es requerido llenar este campo.</mat-error>
+      <mat-error *ngIf="when_error('rpassword', 'minlength')">Mínimo debe tener 6 caracteres.</mat-error>
+      <mat-error *ngIf="when_error('rpassword', 'passwordEqual')">Las contraseñas no coinciden.</mat-error>
+    </mat-form-field>
+  </section>
+  <button type="submit" mat-flat-button color="primary" [disabled]="!session.valid" >Registrar e ingresar</button>
+  <p>¿Ya tines una cuenta? <a [routerLink]="'/login'">Inicia sesión aquí</a></p>
+</form>
