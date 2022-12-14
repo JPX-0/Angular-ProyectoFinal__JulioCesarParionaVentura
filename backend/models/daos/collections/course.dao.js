@@ -9,6 +9,9 @@ class CourseDao extends MongoCrud {
       return CourseDao.#instance;
     } else return CourseDao.#instance;
   }
+  async getAll() {
+    return await this.model.find({}, { __v: 0 }).populate("commissions");
+  }
 }
 
 module.exports = CourseDao;

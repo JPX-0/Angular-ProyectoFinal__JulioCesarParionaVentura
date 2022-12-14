@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Cursos</h1>
   <div style="margin-bottom: 2rem; display: flex; justify-content: center;">
-    <button mat-raised-button (click)="openDialog_addCourse('xd')" color="accent">Agregar Curso</button>
+    <button mat-raised-button (click)="openDialog_addCourse()" color="accent">Agregar Curso</button>
   </div>
   <section>
     <mat-card 
@@ -20,8 +20,7 @@
         <button mat-raised-button (click)="openDialog_inscription(course?._id)" color="primary">Inscribirme</button>
       </mat-card-actions>
       <mat-card-actions *ngIf="(getRole() | async)?.isAdmin">
-        <button mat-raised-button (click)="openDialog_editCommission(course?._id)">Editar</button>
-        <button mat-raised-button color="primary">Eliminar</button>
+        <button mat-raised-button (click)="openDialog_editCommission(course?.commissions)" color="primary">Editar</button>
       </mat-card-actions>
     </mat-card>
   </section>

@@ -1,6 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { CoursesService } from 'src/app/core/services/db/courses.service';
 import { ToSend_course } from 'src/app/shared/models/db/course.model';
 
@@ -23,10 +24,13 @@ export class AddCourseComponent implements OnInit {
     end: ["", [Validators.required]],
   });
 
+  _dbPut!: Subscription;
+  _dbGetAll!: Subscription;
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) private idCourse: any,
     private formBuilder: FormBuilder,
     private dbService: CoursesService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -46,16 +50,27 @@ export class AddCourseComponent implements OnInit {
       },
       days: this.courseForm.get("days")?.value,
     }
-    this.dbService.post(dtoCourse).subscribe({
+    this._dbPut = this.dbService.post(dtoCourse).subscribe({
       error: ({ error }) => console.error("error: ", error),
       next: ({ error, response }) => {
         if(error) console.error("next: ", response);
-        console.log(response)
-        // this.dbService.reloadCourse(response);
+        this._dbGetAll = this.dbService.getAll().subscribe({
+          next: ({ error, response }) => {
+            if(error) console.error("next: ", response);
+            this.dbService.reloadCourse(response);
+          },
+          complete: () => {
+            this.dialog.closeAll();
+            this.courseForm.reset();
+            this.dateForm.reset();
+            this._dbGetAll?.unsubscribe();
+            this._dbPut?.unsubscribe();
+          }
+        })
       }
     })
-    console.log(dtoCourse)
   }
+
   when_error(ref: string, validator: string): ValidationErrors | null {
     return this.courseForm.controls?.[ref].errors?.[validator];
   }

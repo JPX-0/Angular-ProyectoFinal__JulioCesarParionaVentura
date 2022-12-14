@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CoursesService } from 'src/app/core/services/db/courses.service';
 import { UserService } from 'src/app/core/services/db/user.service';
@@ -17,7 +17,7 @@ import { InscriptionComponent } from '../inscription/inscription.component';
 })
 export class CoursesComponent implements OnInit, OnDestroy {
 
-  courses$: Observable<ToReceive_courses> = this.dbCourseService.getCourse();
+  courses$: Observable<ToReceive_course> = this.dbCourseService.getCourse();
   commissions$!: BehaviorSubject<ToReceive_commission[]>;
   // courses$!: BehaviorSubject <CommissionSpecial[]>;
 
@@ -43,11 +43,12 @@ export class CoursesComponent implements OnInit, OnDestroy {
   openDialog_inscription(data: any): void {
     this.dialog.open(InscriptionComponent, { data });
   }
-  openDialog_addCourse(data: any): void {
-    this.dialog.open(AddCourseComponent, { data });
+  openDialog_addCourse(): void {
+    this.dialog.open(AddCourseComponent);
   }
   openDialog_editCommission(data: any): void {
-    this.dialog.open(EditCommissionComponent, { data });
+    const styles: MatDialogConfig<any>  = { height: "100%", maxHeight: "50rem", width: "100%", maxWidth: "50rem" }
+    this.dialog.open(EditCommissionComponent, { data, ...styles });
   }
 
   getRole(): Observable<{ isAdmin: boolean, isAuth: boolean }> {

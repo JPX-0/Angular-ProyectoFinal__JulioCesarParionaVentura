@@ -1,1 +1,49 @@
-<p>edit-commission works!</p>
+<mat-dialog-content>
+  <mat-tab-group class="editing" [selectedIndex]="tabSelected" animationDuration="250ms">
+    <mat-tab label="commissions">
+      <article>
+        <h4>Comisiones</h4>
+        <section *ngFor="let commission of commissions">
+          <div>
+            <p>Fechas: {{ commission?.date | resolveCourseDate }} </p>
+            <p>Dias: {{ commission?.days }}</p>
+            <p>Horario: {{ commission?.time.start }} a {{ commission?.time.end }}</p>
+            <p>Profesor: {{ commission?.teacher }}</p>
+          </div>
+          <div class="buttons">
+            <button mat-raised-button color="primary" type="button" (click)="edit('edit', commission)">
+              Eitar comisión
+            </button>
+            <button mat-raised-button color="accent" type="button" (click)="edit('addGroup')">
+              Agregar grupo
+            </button>
+            <button mat-raised-button type="button" (click)="edit('addStudent')">
+              Agregar estudiante
+            </button>
+          </div>
+        </section>
+      </article>
+    </mat-tab>
+    <mat-tab label="editCommission">
+      <article class="info__reference">
+        <button (click)="cancelEdit()">Volver</button>
+        <h4>Editar Comisión</h4>
+        <code>{{ idSelected$ | async }}</code>
+      </article>
+    </mat-tab>
+    <mat-tab label="addGroup">
+      <article class="info__reference">
+        <button (click)="cancelEdit()">Volver</button>
+        <h4>Agregar nuevo grupo</h4>
+        <code>{{ idSelected$ | async }}</code>
+      </article>
+    </mat-tab>
+    <mat-tab label="addStudent">
+      <article class="info__reference">
+        <button (click)="cancelEdit()">Volver</button>
+        <h4>Inscribir estudiante</h4>
+        <code>{{ idSelected$ | async }}</code>
+      </article>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>

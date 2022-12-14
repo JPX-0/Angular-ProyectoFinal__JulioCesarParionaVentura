@@ -10,6 +10,7 @@ import { ResolveCourseDatePipe } from './pipes/resolve-course-date.pipe';
 import { EditCommissionComponent } from './components/edit-commission/edit-commission.component';
 import { AddCourseComponent } from './components/add-course/add-course.component';
 import { Mat_FormsModule } from 'src/app/shared/material/mat-forms.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { Mat_FormsModule } from 'src/app/shared/material/mat-forms.module';
   imports: [
     Mat_GenericModule,
     Mat_FormsModule,
+    MatTabsModule,
     MatCardModule,
     MatDialogModule,
     CoursesRoutingModule
