@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, Subscription, BehaviorSubject } from 'rxjs';
+import { Observable, map, BehaviorSubject } from 'rxjs';
 import { ToSend_user, UserData, UserInfo, ToReceive_user, userRoleType } from 'src/app/shared/models/db/user.model';
 import { ApiResponse_default, ApiResponse_user, ApiResponse_users } from 'src/app/shared/models/tools/apiRest.model';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: "root"
@@ -27,17 +27,16 @@ export class UserService {
   }
 
   getAll(): Observable<ApiResponse_users> {
-    return this.http.get<ApiResponse_users>(`${environment.api("user", "get")}`)
-    // .pipe(throwError(error => "a"),map(({ error, response }) => !error && response));
+    return this.http.get<ApiResponse_users>(`${environment.api("user", "get")}`);
   }
   getOne(id: string): Observable<ApiResponse_user> {
-    return this.http.get<ApiResponse_user>(`${environment.api("user", "get", id)}`)
+    return this.http.get<ApiResponse_user>(`${environment.api("user", "get", id)}`);
   }
   post(user: ToSend_user): Observable<ApiResponse_user> {
-    return this.http.post<ApiResponse_user>(`${environment.api("user", "post")}`, user)
+    return this.http.post<ApiResponse_user>(`${environment.api("user", "post")}`, user);
   }
   put(id: string, user: UserInfo): Observable<ApiResponse_default> {
-    return this.http.put<ApiResponse_default>(`${environment.api("user", "put", id)}`, user)
+    return this.http.put<ApiResponse_default>(`${environment.api("user", "put", id)}`, user);
   }
 
   login({ email, password }: UserData): Observable<ApiResponse_user> {
@@ -62,7 +61,7 @@ export class UserService {
   }
 
   getUserId(): Observable<string> {
-    return this.user$.pipe(map(e => e?.data.role!));
+    return this.user$.pipe(map(e => e?._id!));
   }
   getUserInfo(): Observable<UserInfo> {
     return this.user$.pipe(map(e => e?.info!));

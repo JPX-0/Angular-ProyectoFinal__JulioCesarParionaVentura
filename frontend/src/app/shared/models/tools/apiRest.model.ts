@@ -15,7 +15,7 @@ export interface ApiRestInterface<res> {
 export type ApiResponse_default = ApiRestInterface<string>;
 export type ApiResponse_user = ApiRestInterface<ToReceive_user>;
 export type ApiResponse_users = ApiRestInterface<ToReceive_user[]>;
-export type ApiResponse_course = ApiRestInterface<ToReceive_course>;
+export type ApiResponse_course = ApiRestInterface<ToReceive_course[]>;
 export type ApiResponse_courses = ApiRestInterface<ToReceive_courses>;
 export type ApiResponse_myCourses = ApiRestInterface<CommissionSpecial[]>;
 export type ApiResponse_commission = ApiRestInterface<ToReceive_commission>;

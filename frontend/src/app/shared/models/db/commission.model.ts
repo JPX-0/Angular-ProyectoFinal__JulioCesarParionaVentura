@@ -28,7 +28,7 @@ export interface commissionGroup<student> {
 }
 interface commissionData<group> extends ToSend_course {
   _id: string,
-  groups: commissionGroup<group>
+  groups: commissionGroup<group>[]
 }
 
 // ▀█▀ ▀▄▀ █▀▄ ██▀ 

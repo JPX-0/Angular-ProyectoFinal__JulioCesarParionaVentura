@@ -1,6 +1,6 @@
 <header></header>
-<div [ngClass]="{'body': (getRole() | async)?.isAuth}" style="display: grid;">
-  <app-menu *ngIf="(getRole() | async)?.isAuth"></app-menu>
+<div [ngClass]="{'body': (getRole$ | async)?.isAuth}" style="display: grid;">
+  <app-menu *ngIf="(getRole$ | async)?.isAuth"></app-menu>
   <main>
     <router-outlet></router-outlet>
   </main>

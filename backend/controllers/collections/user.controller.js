@@ -122,12 +122,6 @@ class UserController {
     const { _currentTime, _myTime } = getYears(body.birth);
     try { 
       let foundData = await getById(id);
-      // if(body.firstName) foundData.info.firstName = body.firstName;
-      // if(body.lastName) foundData.info.lastName = body.lastName;
-      // if(body.image) foundData.info.image = body.image;
-      // if(body.birth) {
-      //   foundData.info.birth = body.birth;
-      // }
       foundData.info = { ...body, age: _currentTime - _myTime };
       checkError(foundData);
       await DAO.user.updateOne({ _id: id }, foundData);

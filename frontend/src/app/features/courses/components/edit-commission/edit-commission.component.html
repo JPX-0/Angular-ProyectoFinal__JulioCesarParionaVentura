@@ -2,47 +2,94 @@
   <mat-tab-group class="editing" [selectedIndex]="tabSelected" animationDuration="250ms">
     <mat-tab label="commissions">
       <article>
-        <h4>Comisiones</h4>
-        <section *ngFor="let commission of commissions">
+        <h3>Comisiones</h3>
+        <section *ngFor="let commission of (courseSelected$ | async)">
           <div>
             <p>Fechas: {{ commission?.date | resolveCourseDate }} </p>
             <p>Dias: {{ commission?.days }}</p>
-            <p>Horario: {{ commission?.time.start }} a {{ commission?.time.end }}</p>
+            <p>Horario: {{ commission?.time?.start }} a {{ commission?.time?.end }}</p>
             <p>Profesor: {{ commission?.teacher }}</p>
+            <p>Grupos: {{ commission?.groups?.length }}</p>
           </div>
           <div class="buttons">
-            <button mat-raised-button color="primary" type="button" (click)="edit('edit', commission)">
+            <button mat-raised-button color="primary" type="button" (click)="edit('editCommission', commission._id)">
               Eitar comisión
             </button>
-            <button mat-raised-button color="accent" type="button" (click)="edit('addGroup')">
+            <button mat-raised-button color="accent" type="button" (click)="edit('addGroup', commission._id)">
               Agregar grupo
             </button>
-            <button mat-raised-button type="button" (click)="edit('addStudent')">
-              Agregar estudiante
+            <button mat-raised-button type="button" (click)="edit('editInscriptions', commission._id)">
+              Editar inscripciones
             </button>
           </div>
         </section>
       </article>
     </mat-tab>
     <mat-tab label="editCommission">
-      <article class="info__reference">
-        <button (click)="cancelEdit()">Volver</button>
-        <h4>Editar Comisión</h4>
-        <code>{{ idSelected$ | async }}</code>
+      <article>
+        <button mat-flat-button (click)="cancelEdit()" class="return">{{'< Volver'}}</button>
+        <h3>Editar</h3>
+        <h4>Comisión: {{ (commissionSelected() | async)?._id }}</h4>
       </article>
     </mat-tab>
     <mat-tab label="addGroup">
-      <article class="info__reference">
-        <button (click)="cancelEdit()">Volver</button>
-        <h4>Agregar nuevo grupo</h4>
-        <code>{{ idSelected$ | async }}</code>
+      <article>
+        <button mat-flat-button (click)="cancelEdit()" class="return">{{'< Volver'}}</button>
+        <h3>Agregar nuevo grupo</h3>
+        <h4>Comisión: {{ (commissionSelected() | async)?._id }}</h4>
+        <form (ngSubmit)="addGroup()" class="form-addGroup">
+          <mat-form-field appearance="fill">
+            <mat-label>Nuevo tutor</mat-label>
+            <input matInput placeholder="Nombre del tutor" [formControl]="groupForm" required>
+            <mat-error *ngIf="when_error('duplicate')">El tutor ya fué asignado a otro grupo.</mat-error>
+          </mat-form-field>
+          <button mat-raised-button type="submit" [disabled]="!groupForm.valid" color="primary">Agregar</button>
+        </form>
       </article>
     </mat-tab>
-    <mat-tab label="addStudent">
-      <article class="info__reference">
-        <button (click)="cancelEdit()">Volver</button>
-        <h4>Inscribir estudiante</h4>
-        <code>{{ idSelected$ | async }}</code>
+    <mat-tab label="editInscriptions">
+      <article>
+        <button mat-flat-button (click)="cancelEdit()" class="return">{{'< Volver'}}</button>
+        <h3>Editar Inscripciones</h3>
+        <form (ngSubmit)="editInscriptions()" class="form-addGroup" [formGroup]="inscriptionForm">
+          <mat-form-field appearance="fill">
+            <mat-label>Elegir grupo</mat-label>
+            <mat-select name="food">
+              <mat-option>----</mat-option>
+              <mat-option 
+                formControlName="tutor"
+                *ngFor="let autor of (getTutors() | async)" 
+                [value]="autor"
+              >{{autor}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="when_error('equired')">Es requerido llenar este campo.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Elegir estudiante</mat-label>
+            <mat-select name="food">
+              <mat-option>----</mat-option>
+              <mat-option 
+                formControlName="tutor"
+                *ngFor="let student of (getStudents() | async)" 
+                [value]="student.value"
+              >{{student.view}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="when_error('equired')">Es requerido llenar este campo.</mat-error>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button 
+              type="submit" 
+              [disabled]="!inscriptionForm.valid"
+              (click)="unsubscribeUser()"
+            >Desuscribir</button>
+            <button mat-raised-button 
+              type="submit" 
+              [disabled]="!inscriptionForm.valid" 
+              (click)="subscribeUser()"
+              color="primary"
+            >Inscribir</button>
+          </div>
+        </form>
       </article>
     </mat-tab>
   </mat-tab-group>

@@ -17,7 +17,7 @@ import { InscriptionComponent } from '../inscription/inscription.component';
 })
 export class CoursesComponent implements OnInit, OnDestroy {
 
-  courses$: Observable<ToReceive_course> = this.dbCourseService.getCourse();
+  courses$: Observable<ToReceive_course[]> = this.dbCourseService.getCourse();
   commissions$!: BehaviorSubject<ToReceive_commission[]>;
   // courses$!: BehaviorSubject <CommissionSpecial[]>;
 

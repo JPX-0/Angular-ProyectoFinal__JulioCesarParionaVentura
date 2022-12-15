@@ -22,5 +22,5 @@ export interface ToSend_course {
 
 // ▀█▀ ▀▄▀ █▀▄ ██▀ 
 //  █   █  █▀  █▄▄ 
-export type ToReceive_course = courseData<ToReceive_commission[]>[];
+export type ToReceive_course = courseData<ToReceive_commission[]>;
 export type ToReceive_courses = courseData<ToReceive_commissions[]>[];

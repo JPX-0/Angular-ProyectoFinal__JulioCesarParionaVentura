@@ -18,7 +18,7 @@ export class InscriptionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.dbService.getOne(this.idCourse).subscribe({
+    this.dbService.getOne(this.idCourse, "course").subscribe({
       error: ({ error }) => console.error("error: ", error),
       next: ({ error, response }) => {
         if(error) return console.error("next: ", error)

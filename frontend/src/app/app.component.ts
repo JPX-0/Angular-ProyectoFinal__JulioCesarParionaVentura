@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from './core/services/db/user.service';
-import { Observable, map, Subscription } from "rxjs"
+import { Observable } from "rxjs"
 
 @Component({
   selector: 'app-root',
@@ -10,15 +10,10 @@ import { Observable, map, Subscription } from "rxjs"
 export class AppComponent {
 
   title = 'ProyectoFinal';
-
-  _db!: Subscription;
+  getRole$: Observable<{ isAdmin: boolean, isAuth: boolean }> = this.dbService.getUserRole();
 
   constructor(
     private dbService: UserService,
   ) {}
-
-  getRole(): Observable<{ isAdmin: boolean, isAuth: boolean }> {
-    return this.dbService.getUserRole()
-  }
 
 }

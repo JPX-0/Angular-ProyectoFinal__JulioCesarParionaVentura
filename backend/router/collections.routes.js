@@ -24,26 +24,5 @@ const generateApiRest = (route, controller) => {
   router.delete(`/${route}/delete/:id`, controller.deleteData);
   return router;
 }
-// const students = (route = "students", controller = studentController) => {
-//   router.get(`/${route}/get`, controller.getData);
-//   router.get(`/${route}/get/:id`, controller.getData);
-//   router.post(`/${route}/post`, controller.postData);
-//   router.put(`/${route}/put/:id`, controller.putData);
-//   // router.delete(`/${route}/delete`, controller.deleteData);
-//   router.delete(`/${route}/delete/:id`, controller.deleteData);
-//   return router;
-// }
-// const courses = (
-//     route = "courses",
-//     controller = courseController
-//   ) => {
-//   // router.get(`/${route}/get`, controller.getData);
-//   // router.get(`/${route}/get/:id`, controller.getData);
-//   // router.post(`/${route}/post`, controller.postData);
-//   // router.put(`/${route}/put/:id`, controller.putData);
-//   // router.delete(`/${route}/delete`, controller.deleteData);
-//   // router.delete(`/${route}/delete/:id`, controller.deleteData);
-//   return router;
-// }
 
 module.exports = { init, notFound, renderError, generateApiRest };

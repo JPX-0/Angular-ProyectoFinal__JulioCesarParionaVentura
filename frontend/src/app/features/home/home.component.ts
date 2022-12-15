@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.routerService.pushCurrentPage(this.routerService.getCurrentPage());
     this._dbUser = this.dbUserservice.getUserId().subscribe(idUser => {
-      this._dbCourse = this.dbCourseservice.getMyCourses(idUser).subscribe({
+      if(idUser) this._dbCourse = this.dbCourseservice.getMyCourses(idUser).subscribe({
         error: ({ error }) => console.error("error: ", error),
         next: ({ error, response }) => {
           if(error) return console.error("next: ", response);
